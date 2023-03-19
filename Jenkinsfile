@@ -1,28 +1,31 @@
 #!/usr/bin/env groovy
-
 pipeline {
     agent any
+    environment {
+        AWS_ACCESS_KEY_ID = credentials('AWS_ACCESS_KEY_ID')
+        AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
+        AWS_DEFAULT_REGION = "us-east-1"
+    }
     stages {
-        stage('build') {
+        stage("Create an EKS Cluster") {
             steps {
                 script {
-                    echo "Building the application..."
+                    dir('terraform') {
+                        sh "terraform init"
+                        sh "terraform apply -auto-approve"
+                    }
                 }
             }
         }
-        stage('test') {
+        stage("Deploy to EKS") {
             steps {
                 script {
-                    echo "Testing the application..."
-                }
-            }
-        }
-        stage('deploy') {
-            steps {
-                script {
-                    def dockerCmd = "docker run -p 8080:80 -d dannyboy01/my-app:dev"
-                    sshagent(['ssh-key']) {
-                        sh "ssh -o StrictHostKeyChecking=no ubuntu@100.25.153.24 ${dockerCmd}"
+                    dir('kubernetes') {
+                        sh "aws eks update-kubeconfig --name myapp-eks-cluster"
+                        sh "kubectl create ns microservices
+                        sh "kubectl create ns final-app
+                        sh "kubectl apply -f socks-app.yml -n microservices"
+                        sh "kubectl apply -f deploy-app.yml -n final-app"
                     }
                 }
             }
