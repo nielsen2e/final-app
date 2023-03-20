@@ -6,7 +6,7 @@ pipeline {
         AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
         AWS_DEFAULT_REGION = "us-east-1"
     }
-    stages {
+    /*stages {
         stage("Create an EKS Cluster") {
             steps {
                 script {
@@ -17,7 +17,7 @@ pipeline {
                     }
                 }
             }
-        }
+       */ }
         stage("Deploy to EKS") {
             steps {
                 script {
