@@ -30,3 +30,25 @@ Use [Weave Scope](http://weave.works/products/weave-scope/) or [Weave Cloud](htt
 ![Sock Shop in Weave Scope](https://github.com/microservices-demo/microservices-demo.github.io/raw/master/assets/sockshop-scope.png)
 
 ## 
+## Production and Security Best Practices
+1. Pinned tag version for each container image
+2. liveness probe for each container.
+3. Readiness probe for each container.
+4. Resource probe for each container
+5. Resource requests for each container
+6. Do not expose a Node prot.
+7. Use labels for all resources
+8. Uisng Namespaces to isolate resources.
+## Step by Step Overview
+1. Create a K8s cluster with EKS
+2. Deploy Microservices app
+3. Deploy prometheus monitoring stack
+4. Monitor Cluster Nodes
+5. Monitor K8s Components
+6. Monitor 3rd party Applications
+7. Monitor own Applications.
+
+### Monitoring on different levels
+- Infrastructure Level (CPU, RAM, Network etc)
+- Platform Level (Kubernetes Components)
+- Application Level (3rd-Party Applications)
