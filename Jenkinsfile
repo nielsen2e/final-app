@@ -11,7 +11,7 @@ pipeline {
             steps {
                 script {
                     dir('terraform') {
-                        sh "teraform init"
+                        sh "terraform init"
                         sh "terraform destroy"
                     }
                 }
